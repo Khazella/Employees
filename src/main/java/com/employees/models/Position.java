@@ -31,4 +31,5 @@ public class Position {
 	
 	@OneToMany(mappedBy = "position", cascade = CascadeType.PERSIST)
 	private List<Employee> employee;
+	
 }
