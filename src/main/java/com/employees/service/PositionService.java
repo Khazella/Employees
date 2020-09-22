@@ -29,7 +29,7 @@ public class PositionService {
 		List<PositionDTO> listPositionDto = new ArrayList<PositionDTO>();
 		Page<Position> pagedResult = repository.findAll(paging);
  
-		repository.findAll().forEach(position -> {
+		pagedResult.getContent().forEach(position -> {
 			listPositionDto.add(modelMapper.map(position, PositionDTO.class));
 		});
          

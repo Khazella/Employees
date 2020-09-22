@@ -29,7 +29,7 @@ public class DivisionService {
 		List<DivisionDTO> listDivisionDto = new ArrayList<DivisionDTO>();
 		Page<Division> pagedResult = repository.findAll(paging);
  
-		repository.findAll().forEach(position -> {
+		pagedResult.getContent().forEach(position -> {
 			listDivisionDto.add(modelMapper.map(position, DivisionDTO.class));
 		});
          

@@ -66,7 +66,7 @@ public class EmployeeController {
 		
 		results.put("Data", modelMapper.map(employee, EmployeeDTO.class));
 		
-		return ResponseEntity.ok(results);
+		return new ResponseEntity<Map<String,Object>>(results, new HttpHeaders(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/employees")
@@ -75,16 +75,16 @@ public class EmployeeController {
 		Employee employee = new Employee();
 		
 		employee = modelMapper.map(employeeDTO, Employee.class);
-		employeeRepository.save(employee);
+		employeeRepository.save(employee);	
 		
+		System.out.println(employee.getId());
 		employee.setNik(employeeService.setNikBasedOnId(employee.getId()));
 		employeeRepository.save(employee);
-		
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(employee.getId()).toUri();
 		
-		return ResponseEntity.created(location).build();
+		return new ResponseEntity<Map<String,Object>>(new HttpHeaders(), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/employees/{id}")
@@ -93,7 +93,7 @@ public class EmployeeController {
 		
 		employeeRepository.deleteById(id);
 		
-		return ResponseEntity.ok(results);
+		return new ResponseEntity<Map<String,Object>>(results, new HttpHeaders(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/employees-sequence")
@@ -101,7 +101,7 @@ public class EmployeeController {
 		
 		int result = employeeRepository.sequenceData();
 		
-		return ResponseEntity.ok(result);	
+		return new ResponseEntity<Integer>(result, new HttpHeaders(), HttpStatus.OK);	
 	}
 	
 }

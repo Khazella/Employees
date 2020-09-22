@@ -31,8 +31,7 @@ public class EmployeeService {
 		List<EmployeeDTO> listEmployeeDto = new ArrayList<EmployeeDTO>();
 		Page<Employee> pagedResult = repository.findAll(paging);
 	
- 
-		repository.findAll(paging).forEach(employee -> {
+		pagedResult.getContent().forEach(employee -> {
 			listEmployeeDto.add(modelMapper.map(employee, EmployeeDTO.class));
 		});
          
